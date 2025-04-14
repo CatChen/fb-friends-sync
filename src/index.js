@@ -1,6 +1,6 @@
 import { launch } from 'puppeteer';
 import { loadCookie, saveCookie } from './cookies.js';
-import { saveContact } from './contacts.js';
+import { saveFriends } from './friends.js';
 
 const NAVIGATION_BAR_SELF_SELECTOR =
   'div.x6s0dn4.xkh2ocl.x1q0q8m5.x1qhh985.xu3j5b3.xcfux6l.x26u7qi.xm0m39n.x13fuv20.x972fbf.x9f619.x78zum5.x1q0g3np.x1iyjqo2.xs83m0k.x1qughib.xat24cr.x11i5rnm.x1mh8g0r.xdj266r.x2lwn1j.xeuugli.x18d9i69.x4uap5.xkhd6sd.xexx8yu.x1n2onr6.x1ja2u2z';
@@ -110,7 +110,7 @@ const CONTACT_KEYS_SELECTOR =
       contactEntries['Translated Name'] = contactTranslatedName;
     }
     console.log(contactEntries);
-    await saveContact(friendId, contactEntries);
+    await saveFriends(friendId, contactEntries);
     console.groupEnd();
 
     const randomDelay = Math.floor(Math.random() * 3000) + 1000;
