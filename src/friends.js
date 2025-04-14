@@ -1,14 +1,16 @@
 import { promises as fs, existsSync } from 'node:fs';
 import * as path from 'node:path';
 
-const CONTACTS_PATH = 'artifacts/contacts.json';
+const CONTACTS_PATH = 'artifacts/friends.json';
 
 export async function saveFriends(contactName, contactEntries) {
   const contacts = (await loadFriends()) ?? {};
   if (contacts[contactName]) {
-    console.error(`Error: Contact "${contactName}" already exists`);
+    console.warn(`Friend "${contactName}" already exists`);
+    contacts[contactName] = { ...contacts[contactName], ...contactEntries };
+  } else {
+    contacts[contactName] = contactEntries;
   }
-  contacts[contactName] = contactEntries;
   fs.mkdir(path.dirname(CONTACTS_PATH), { recursive: true });
   await fs.writeFile(CONTACTS_PATH, JSON.stringify(contacts, null, 2));
 }
